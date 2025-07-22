@@ -1,191 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Taller de Seguridad Digital</title>
-    <style>
-        /* (todo el CSS permanece igual, omitido para ahorrar espacio) */
-        /* Puedes volver a pegar el CSS si lo necesitas completo */
-    </style>
+  <meta charset="UTF-8">
+  <title>Simulación Phishing Educativo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+    }
+    header, footer {
+      background-color: #0077b6;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #0077b6;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #005f87;
+    }
+    .hidden {
+      display: none;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background-color: #0077b6;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Taller de Seguridad Digital</h1>
-        </div>
-    </header>
 
-    <div class="container">
-        <!-- Login Section -->
-        <div id="login-section" class="login-container">
-            <h2>Bienvenido al material de la charla</h2>
-            <p>Por favor ingrese sus credenciales para continuar</p>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="username">Usuario</label>
-                    <input type="text" id="username" name="username" required />
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required />
-                </div>
-                <button type="submit" class="btn">Ingresar</button>
-            </form>
-        </div>
+<header>
+  <h1>Taller de Seguridad Digital</h1>
+</header>
 
-        <!-- Educational Content -->
-        <div id="educational-content" class="educational-content">
-            <h2>¿Qué es el Phishing?</h2>
-            <div class="info-card">
-                <p>El phishing es un tipo de ciberataque que utiliza engaños para obtener información confidencial como nombres de usuario, contraseñas y detalles de tarjetas de crédito, haciéndose pasar por una entidad confiable en una comunicación electrónica.</p>
-            </div>
-            <h2>Ciberseguridad</h2>
-            <div class="warning-card">
-                <p>La ciberseguridad se refiere a la práctica de proteger sistemas, redes y programas de ataques digitales.</p>
-            </div>
-            <h2>Cómo protegerse</h2>
-            <ul style="margin-left: 20px; margin-bottom: 20px;">
-                <li>Nunca ingrese sus credenciales en páginas sospechosas</li>
-                <li>Verifique siempre la URL del sitio web</li>
-                <li>Use autenticación de dos factores</li>
-                <li>Mantenga su software actualizado</li>
-            </ul>
-            <div class="nav-buttons">
-                <button id="admin-btn" class="btn btn-danger">Panel de administración</button>
-                <button id="back-btn" class="btn">Volver al inicio</button>
-            </div>
-        </div>
-
-        <!-- Admin Panel -->
-        <div id="admin-panel" class="admin-panel">
-            <h2>Registros capturados</h2>
-            <p>Esta página muestra la información recopilada de los usuarios que ingresaron sus credenciales.</p>
-            <table id="user-data">
-                <thead>
-                    <tr>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Fecha</th>
-                        <th>Navegador</th>
-                        <th>IP</th>
-                        <th>Idioma</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <div class="nav-buttons">
-                <button id="return-btn" class="btn">Volver a la información</button>
-            </div>
-        </div>
+<!-- Sección Login -->
+<div class="container" id="seccion-login">
+  <h2>Inicio de sesión</h2>
+  <p>Ingrese sus credenciales para continuar</p>
+  <form onsubmit="handleLogin(event)">
+    <div class="form-group">
+      <label for="username">Usuario</label>
+      <input type="text" id="username" required />
     </div>
+    <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" required />
+    </div>
+    <button type="submit" class="btn">Ingresar</button>
+  </form>
+</div>
 
-    <footer>
-        <div class="container">
-            <p>Taller educativo sobre seguridad digital - © 2025</p>
-        </div>
-    </footer>
+<!-- Sección Datos Capturados -->
+<div class="container hidden" id="seccion-capturado">
+  <h2>Datos capturados</h2>
+  <p><strong>Usuario:</strong> <span id="capturado-usuario"></span></p>
+  <p><strong>Contraseña:</strong> <span id="capturado-pass"></span></p>
+  <p><strong>Hora de ingreso:</strong> <span id="capturado-hora"></span></p>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('login-form');
-            const loginSection = document.getElementById('login-section');
-            const educationalContent = document.getElementById('educational-content');
-            const adminPanel = document.getElementById('admin-panel');
-            const adminBtn = document.getElementById('admin-btn');
-            const backBtn = document.getElementById('back-btn');
-            const returnBtn = document.getElementById('return-btn');
-            const userDataTable = document.getElementById('user-data').getElementsByTagName('tbody')[0];
+  <button class="btn" onclick="mostrarSeccion('seccion-info')">¿Qué es la ciberseguridad?</button>
+  <button class="btn" onclick="mostrarSeccion('seccion-atacante')">Ver como atacante</button>
+  <button class="btn" onclick="reiniciar()">Regresar al login</button>
+</div>
 
-            let capturedData = [];
-            let userIP = 'Cargando...';
+<!-- Sección Informativa -->
+<div class="container hidden" id="seccion-info">
+  <h2>¿Qué es la ciberseguridad?</h2>
+  <p>La ciberseguridad se refiere a la protección de sistemas, redes y programas contra ataques digitales. Estos ataques suelen tener como objetivo acceder, cambiar o destruir información confidencial, extorsionar a los usuarios o interrumpir procesos normales.</p>
+  <p>El phishing es una técnica utilizada por ciberdelincuentes para engañar a las personas y obtener sus datos personales haciéndose pasar por entidades confiables.</p>
+  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">Volver</button>
+</div>
 
-            // Obtener IP pública del usuario
-            async function getIP() {
-                try {
-                    const response = await fetch('https://api.ipify.org?format=json');
-                    const data = await response.json();
-                    userIP = data.ip;
-                } catch (error) {
-                    console.error('Error al obtener la IP:', error);
-                    userIP = 'No disponible';
-                }
-            }
+<!-- Sección Vista del Atacante -->
+<div class="container hidden" id="seccion-atacante">
+  <h2>Credenciales recolectadas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Contraseña</th>
+        <th>Hora</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-datos"></tbody>
+  </table>
+  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">Volver</button>
+</div>
 
-            getIP();
+<footer>
+  <p>Simulación educativa de seguridad digital - © 2025</p>
+</footer>
 
-            // Función para identificar el navegador
-            function detectarNavegador() {
-                const userAgent = navigator.userAgent;
+<script>
+  function handleLogin(event) {
+    event.preventDefault();
+    const usuario = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    const hora = new Date().toLocaleString();
 
-                if (userAgent.includes("Chrome") && !userAgent.includes("Edg") && !userAgent.includes("OPR")) {
-                    return "Google Chrome";
-                } else if (userAgent.includes("Firefox")) {
-                    return "Mozilla Firefox";
-                } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
-                    return "Safari";
-                } else if (userAgent.includes("Edg")) {
-                    return "Microsoft Edge";
-                } else if (userAgent.includes("OPR") || userAgent.includes("Opera")) {
-                    return "Opera";
-                } else {
-                    return "Desconocido";
-                }
-            }
+    const registro = { usuario, contrasena: pass, hora };
 
-            // Captura de datos del formulario
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+    // Guardar en localStorage como array de objetos
+    let registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    registros.push(registro);
+    localStorage.setItem('registros', JSON.stringify(registros));
 
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+    // Mostrar datos capturados
+    document.getElementById('capturado-usuario').textContent = usuario;
+    document.getElementById('capturado-pass').textContent = pass;
+    document.getElementById('capturado-hora').textContent = hora;
 
-                const userData = {
-                    username: username,
-                    password: password,
-                    date: new Date().toLocaleString(),
-                    browser: detectarNavegador(),
-                    ip: userIP,
-                    language: navigator.language
-                };
+    mostrarSeccion('seccion-capturado');
+  }
 
-                capturedData.push(userData);
-                updateAdminTable();
+  function mostrarSeccion(id) {
+    document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
 
-                loginSection.style.display = 'none';
-                educationalContent.style.display = 'block';
-                loginForm.reset();
-            });
+    if (id === 'seccion-atacante') {
+      mostrarDatosAtacante();
+    }
+  }
 
-            adminBtn.addEventListener('click', function() {
-                educationalContent.style.display = 'none';
-                adminPanel.style.display = 'block';
-            });
+  function mostrarDatosAtacante() {
+    const tabla = document.getElementById('tabla-datos');
+    tabla.innerHTML = '';
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    registros.forEach(reg => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${reg.usuario}</td>
+        <td>${reg.contrasena}</td>
+        <td>${reg.hora}</td>
+      `;
+      tabla.appendChild(fila);
+    });
+  }
 
-            backBtn.addEventListener('click', function() {
-                educationalContent.style.display = 'none';
-                loginSection.style.display = 'block';
-            });
+  function reiniciar() {
+    mostrarSeccion('seccion-login');
+  }
+</script>
 
-            returnBtn.addEventListener('click', function() {
-                adminPanel.style.display = 'none';
-                educationalContent.style.display = 'block';
-            });
-
-            function updateAdminTable() {
-                userDataTable.innerHTML = '';
-
-                capturedData.forEach(data => {
-                    const row = userDataTable.insertRow();
-                    row.insertCell(0).textContent = data.username;
-                    row.insertCell(1).textContent = data.password;
-                    row.insertCell(2).textContent = data.date;
-                    row.insertCell(3).textContent = data.browser;
-                    row.insertCell(4).textContent = data.ip;
-                    row.insertCell(5).textContent = data.language;
-                });
-            }
-        });
-    </script>
 </body>
 </html>
