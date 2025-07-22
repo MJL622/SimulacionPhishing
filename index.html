@@ -25,67 +25,57 @@
             background-color: #f5f5f5;
             color: var(--dark-color);
             line-height: 1.6;
-            font-size: 16px;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 15px;
+            padding: 30px 20px;
         }
         
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 20px 0;
+            padding: 25px 0;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        header h1 {
-            font-size: 2rem;
-            padding: 0 10px;
+            margin-bottom: 40px;
         }
         
-        .login-container,
-        .educational-content,
-        .admin-panel {
+        .login-container {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            width: 100%;
             max-width: 500px;
-            margin: 50px auto 20px;
-            padding: 30px 20px;
+            margin: 0 auto 60px auto;
+            padding: 45px 40px;
             text-align: center;
         }
         
-        .login-container h2,
-        .educational-content h2,
-        .admin-panel h2 {
-            margin-bottom: 20px;
+        .login-container h2 {
+            margin-bottom: 28px;
             color: var(--primary-color);
-        }
-        .admin-panel h2 {
-            color: var(--danger-color);
+            font-size: 1.8rem;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 28px;
             text-align: left;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
+            font-size: 1.1rem;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+            padding: 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 6px;
+            font-size: 1.05rem;
             transition: border 0.3s;
         }
         
@@ -98,14 +88,15 @@
             display: inline-block;
             background-color: var(--secondary-color);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             text-decoration: none;
             transition: background-color 0.3s;
+            user-select: none;
         }
         
         .btn:hover {
@@ -122,92 +113,138 @@
         
         .educational-content {
             display: none;
-            text-align: left;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px 35px;
+            margin-top: 40px;
         }
         
-        .info-card {
-            background-color: #f9f9f9;
-            border-left: 4px solid var(--secondary-color);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 4px 4px 0;
+        .educational-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.7rem;
         }
         
-        .warning-card {
-            background-color: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 4px 4px 0;
+        .educational-content p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.5;
         }
         
         .admin-panel {
             display: none;
-            text-align: left;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            margin-top: 40px;
+            overflow-x: auto; /* para scroll en tablas */
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .admin-panel h2 {
+            color: var(--danger-color);
+            margin-bottom: 30px;
+            font-size: 1.7rem;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 30px;
+            table-layout: fixed;
+            word-wrap: break-word;
         }
         
         th, td {
-            padding: 12px;
+            padding: 14px 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
-            word-break: break-word;
+            border-bottom: 1.5px solid #ddd;
+            font-size: 1rem;
+            vertical-align: middle;
         }
         
         th {
             background-color: var(--primary-color);
             color: white;
+            font-weight: 700;
         }
         
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f9f9f9;
+        }
+
+        /* Truncar texto largo en User Agent */
+        td.user-agent {
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: help;
+        }
+        
+        /* Tooltip simple */
+        td.user-agent:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: normal;
+            max-width: 350px;
+            font-size: 0.9rem;
+            opacity: 0.95;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
         }
         
         footer {
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 50px;
+            padding: 25px 0;
+            margin-top: 70px;
+            font-size: 1rem;
         }
         
         .nav-buttons {
-            margin-top: 30px;
+            margin-top: 35px;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
+        }
+
+        .nav-buttons .btn {
+            flex: 1 1 45%;
+            min-width: 120px;
+            text-align: center;
         }
         
-        /* Responsivo */
-        @media (max-width: 480px) {
-            body {
-                font-size: 14px;
-            }
-            header h1 {
-                font-size: 1.5rem;
-            }
-            .login-container,
-            .educational-content,
-            .admin-panel {
-                margin: 30px 10px;
-                padding: 25px 15px;
-                max-width: 100%;
-            }
-            .btn {
-                width: 100%;
-                padding: 14px;
-                font-size: 18px;
-            }
-            .nav-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
+        .info-card {
+            background-color: #f9f9f9;
+            border-left: 6px solid var(--secondary-color);
+            padding: 22px 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .warning-card {
+            background-color: #fff8e1;
+            border-left: 6px solid #ffc107;
+            padding: 22px 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -227,12 +264,12 @@
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">Usuario</label>
-                    <input type="text" id="username" name="username" required />
+                    <input type="text" id="username" name="username" required autocomplete="off" />
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required />
+                    <input type="password" id="password" name="password" required autocomplete="off" />
                 </div>
                 
                 <button type="submit" class="btn">Ingresar</button>
@@ -254,7 +291,7 @@
             </div>
             
             <h2>Cómo protegerse</h2>
-            <ul style="margin-left: 20px; margin-bottom: 20px;">
+            <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem;">
                 <li>Nunca ingrese sus credenciales en páginas sospechosas</li>
                 <li>Verifique siempre la URL del sitio web</li>
                 <li>Use autenticación de dos factores</li>
@@ -312,9 +349,9 @@
         const userDataTable = document.getElementById('user-data').getElementsByTagName('tbody')[0];
         
         let capturedData = [];
-        let userIP = 'Cargando...'; // Se reemplazará cuando se obtenga la IP real
+        let userIP = 'Cargando...';
 
-        // Obtener la IP pública del visitante
+        // Obtener IP pública
         async function getIP() {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
@@ -326,15 +363,14 @@
             }
         }
 
-        // Llamamos a getIP cuando cargue la página
         getIP();
 
-        // Manejar el envío del formulario de login
+        // Manejar envío del formulario
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
 
             const userData = {
                 username: username,
@@ -368,15 +404,22 @@
             educationalContent.style.display = 'block';
         });
 
+        // Actualizar tabla con tooltip en User Agent
         function updateAdminTable() {
             userDataTable.innerHTML = '';
 
             capturedData.forEach(data => {
                 const row = userDataTable.insertRow();
+
                 row.insertCell(0).textContent = data.username;
                 row.insertCell(1).textContent = data.password;
                 row.insertCell(2).textContent = data.date;
-                row.insertCell(3).textContent = data.browser;
+
+                const uaCell = row.insertCell(3);
+                uaCell.classList.add('user-agent');
+                uaCell.textContent = data.browser;
+                uaCell.setAttribute('data-tooltip', data.browser);
+
                 row.insertCell(4).textContent = data.ip;
                 row.insertCell(5).textContent = data.language;
             });
