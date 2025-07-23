@@ -1,198 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simulación Phishing Educativo</title>
+  <meta charset="UTF-8">
+  <title>Simulación Educativa de Phishing</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #e9f1f7;
+      font-family: Arial, sans-serif;
+      background-color: #eef2f3;
       margin: 0;
-    }
-    header, footer {
-      background-color: #023e8a;
-      color: white;
-      text-align: center;
       padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
-      transition: all 0.4s ease;
-    }
-    h2 {
-      color: #023e8a;
       text-align: center;
-    }
-    p {
-      line-height: 1.6;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: bold;
-      margin-bottom: 6px;
-      display: block;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
     }
     .btn {
-      display: block;
-      width: 100%;
       background-color: #0077b6;
       color: white;
-      border: none;
-      padding: 12px;
+      padding: 15px 30px;
       font-size: 16px;
+      border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
+      margin-top: 30px;
     }
     .btn:hover {
       background-color: #005f87;
-    }
-    .hidden {
-      display: none;
-    }
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ccc;
-      text-align: center;
-    }
-    th {
-      background-color: #0077b6;
-      color: white;
-    }
-    .emoji {
-      font-size: 1.4em;
-      margin-right: 6px;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>🔐 Simulación Educativa de Phishing</h1>
-</header>
+  <h1>🛡️ Simulación de Phishing Educativo</h1>
+  <p>Este entorno simula un panel de atacante para enseñar sobre ciberseguridad.</p>
+  <button class="btn" onclick="abrirPanel()">🕵️ Panel de Personalización</button>
 
-<!-- Sección Login -->
-<div class="container" id="seccion-login">
-  <h2>🔑 Iniciar sesión</h2>
-  <p>Introduce tus credenciales para acceder:</p>
-  <form onsubmit="handleLogin(event)">
-    <div class="form-group">
-      <label for="username">Usuario</label>
-      <input type="text" id="username" required />
-    </div>
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" required />
-    </div>
-    <button type="submit" class="btn">Iniciar sesión</button>
-  </form>
-</div>
+  <script>
+    async function abrirPanel() {
+      const hora = new Date().toLocaleString();
+      const userAgent = navigator.userAgent;
+      let ip = "Desconocida";
+      let ciudad = "", pais = "";
 
-<!-- Datos capturados -->
-<div class="container hidden" id="seccion-capturado">
-  <h2>📥 Datos Capturados</h2>
-  <p><strong>Usuario:</strong> <span id="capturado-usuario"></span></p>
-  <p><strong>Contraseña:</strong> <span id="capturado-pass"></span></p>
-  <p><strong>Hora de ingreso:</strong> <span id="capturado-hora"></span></p>
+      try {
+        const res = await fetch("https://ipapi.co/json");
+        const data = await res.json();
+        ip = data.ip;
+        ciudad = data.city;
+        pais = data.country_name;
+      } catch (error) {
+        console.warn("No se pudo obtener la IP.");
+      }
 
-  <button class="btn" onclick="mostrarSeccion('seccion-info')">ℹ️ ¿Qué es la ciberseguridad?</button>
-  <button class="btn" onclick="mostrarSeccion('seccion-atacante')">🕵️ Ver como atacante</button>
-  <button class="btn" onclick="reiniciar()">🔁 Regresar al login</button>
-</div>
+      const nuevaVentana = window.open("", "_blank");
+      nuevaVentana.document.write(`
+        <html>
+        <head>
+          <title>Panel del Atacante</title>
+          <style>
+            body { font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px; }
+            h1, h2 { color: #023e8a; }
+            .info { background-color: #ffffff; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
+            .section { margin-top: 30px; text-align: left; }
+            p { line-height: 1.6; }
+          </style>
+        </head>
+        <body>
+          <h1>📋 Datos del Ingreso</h1>
+          <div class="info">
+            <p><strong>IP del visitante:</strong> ${ip}</p>
+            <p><strong>Ubicación:</strong> ${ciudad}, ${pais}</p>
+            <p><strong>Navegador:</strong> ${userAgent}</p>
+            <p><strong>Hora del ingreso:</strong> ${hora}</p>
+          </div>
 
-<!-- Información -->
-<div class="container hidden" id="seccion-info">
-  <h2>🔐 ¿Qué es la ciberseguridad?</h2>
-  <p>La ciberseguridad protege redes, dispositivos y datos frente a accesos no autorizados y ciberataques. Es esencial en un mundo digital interconectado.</p>
-  <p>📧 <strong>Phishing</strong> es una técnica que usan los atacantes para engañar a las personas haciéndose pasar por entidades confiables y robar información personal como contraseñas o datos bancarios.</p>
-  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">🔙 Volver</button>
-</div>
+          <div class="section">
+            <h2>🔐 ¿Qué es la Ciberseguridad?</h2>
+            <p>La ciberseguridad es el conjunto de prácticas, tecnologías y procesos diseñados para proteger sistemas, redes y datos de ataques digitales.</p>
+          </div>
 
-<!-- Vista del Atacante -->
-<div class="container hidden" id="seccion-atacante">
-  <h2>🛠️ Credenciales Recolectadas</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Usuario</th>
-        <th>Contraseña</th>
-        <th>Hora</th>
-      </tr>
-    </thead>
-    <tbody id="tabla-datos"></tbody>
-  </table>
-  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">🔙 Volver</button>
-</div>
+          <div class="section">
+            <h2>☠️ ¿Qué es el Malware?</h2>
+            <p>Malware es software malicioso que busca dañar, acceder o robar información de un sistema o red. Puede incluir virus, gusanos, troyanos, spyware, entre otros.</p>
+          </div>
 
-<footer>
-  <p>© 2025 | Simulación educativa de ciberseguridad</p>
-</footer>
+          <div class="section">
+            <h2>🎣 ¿Qué es el Phishing?</h2>
+            <p>Phishing es una técnica de ingeniería social en la que el atacante se hace pasar por una entidad legítima para engañar a la víctima y obtener datos confidenciales como contraseñas o tarjetas.</p>
+          </div>
 
-<script>
-  function handleLogin(event) {
-    event.preventDefault();
-    const usuario = document.getElementById('username').value.trim();
-    const pass = document.getElementById('password').value.trim();
-    const hora = new Date().toLocaleString();
+          <div class="section">
+            <h2>🧬 ¿Qué es el Ransomware?</h2>
+            <p>Ransomware es un tipo de malware que cifra los archivos de la víctima y exige un rescate para restaurar el acceso a los datos.</p>
+          </div>
 
-    const nuevoRegistro = { usuario, contrasena: pass, hora };
+          <div class="section">
+            <h2>🧠 ¿Qué es la Ingeniería Social?</h2>
+            <p>Es el arte de manipular psicológicamente a las personas para que revelen información confidencial. Se basa en engañar al usuario más que en vulnerabilidades técnicas.</p>
+          </div>
 
-    let registros = JSON.parse(localStorage.getItem('registros') || '[]');
-    registros.push(nuevoRegistro);
-    localStorage.setItem('registros', JSON.stringify(registros));
-
-    document.getElementById('capturado-usuario').textContent = usuario;
-    document.getElementById('capturado-pass').textContent = pass;
-    document.getElementById('capturado-hora').textContent = hora;
-
-    mostrarSeccion('seccion-capturado');
-  }
-
-  function mostrarSeccion(id) {
-    document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-
-    if (id === 'seccion-atacante') {
-      actualizarTabla();
+        </body>
+        </html>
+      `);
+      nuevaVentana.document.close();
     }
-  }
-
-  function actualizarTabla() {
-    const tabla = document.getElementById('tabla-datos');
-    tabla.innerHTML = '';
-    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
-    registros.forEach(reg => {
-      const fila = document.createElement('tr');
-      fila.innerHTML = `<td>${reg.usuario}</td><td>${reg.contrasena}</td><td>${reg.hora}</td>`;
-      tabla.appendChild(fila);
-    });
-  }
-
-  function reiniciar() {
-    mostrarSeccion('seccion-login');
-  }
-</script>
+  </script>
 
 </body>
 </html>
