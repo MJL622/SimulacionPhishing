@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Simulación Educativa de Phishing</title>
+  <meta charset="UTF-8" />
+  <title>Simulación Phishing Educativo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #eef2f3;
-      margin: 0;
-      padding: 20px;
       text-align: center;
+      padding: 40px;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
     .btn {
       background-color: #0077b6;
       color: white;
-      padding: 15px 30px;
-      font-size: 16px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 30px;
+      font-size: 16px;
     }
     .btn:hover {
       background-color: #005f87;
@@ -28,14 +41,27 @@
 </head>
 <body>
 
-  <h1>🛡️ Simulación de Phishing Educativo</h1>
-  <p>Este entorno simula un panel de atacante para enseñar sobre ciberseguridad.</p>
-  <button class="btn" onclick="abrirPanel()">🕵️ Panel de Personalización</button>
+  <h1>🔐 Simulación de Phishing Educativo</h1>
+  <div class="form-container">
+    <form onsubmit="handleLogin(event)">
+      <label>Usuario:</label>
+      <input type="text" id="usuario" required>
+
+      <label>Contraseña:</label>
+      <input type="password" id="contrasena" required>
+
+      <button type="submit" class="btn">Iniciar sesión</button>
+    </form>
+  </div>
 
   <script>
-    async function abrirPanel() {
+    async function handleLogin(e) {
+      e.preventDefault();
+      const usuario = document.getElementById("usuario").value;
+      const contrasena = document.getElementById("contrasena").value;
       const hora = new Date().toLocaleString();
       const userAgent = navigator.userAgent;
+
       let ip = "Desconocida";
       let ciudad = "", pais = "";
 
@@ -45,61 +71,63 @@
         ip = data.ip;
         ciudad = data.city;
         pais = data.country_name;
-      } catch (error) {
-        console.warn("No se pudo obtener la IP.");
+      } catch (err) {
+        console.warn("No se pudo obtener la IP");
       }
 
-      const nuevaVentana = window.open("", "_blank");
-      nuevaVentana.document.write(`
+      const ventana = window.open("", "_blank");
+      ventana.document.write(`
         <html>
         <head>
           <title>Panel del Atacante</title>
           <style>
-            body { font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px; }
+            body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; }
             h1, h2 { color: #023e8a; }
-            .info { background-color: #ffffff; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
-            .section { margin-top: 30px; text-align: left; }
+            .box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+            .section { text-align: left; }
             p { line-height: 1.6; }
           </style>
         </head>
         <body>
-          <h1>📋 Datos del Ingreso</h1>
-          <div class="info">
-            <p><strong>IP del visitante:</strong> ${ip}</p>
+          <h1>📋 Datos Capturados</h1>
+          <div class="box">
+            <p><strong>Usuario:</strong> ${usuario}</p>
+            <p><strong>Contraseña:</strong> ${contrasena}</p>
+            <p><strong>Hora de ingreso:</strong> ${hora}</p>
+            <p><strong>IP:</strong> ${ip}</p>
             <p><strong>Ubicación:</strong> ${ciudad}, ${pais}</p>
             <p><strong>Navegador:</strong> ${userAgent}</p>
-            <p><strong>Hora del ingreso:</strong> ${hora}</p>
           </div>
 
-          <div class="section">
+          <div class="box section">
             <h2>🔐 ¿Qué es la Ciberseguridad?</h2>
-            <p>La ciberseguridad es el conjunto de prácticas, tecnologías y procesos diseñados para proteger sistemas, redes y datos de ataques digitales.</p>
+            <p>La ciberseguridad protege sistemas informáticos frente a accesos no autorizados, robos y daños digitales. Es fundamental para proteger tu identidad y privacidad en línea.</p>
           </div>
 
-          <div class="section">
+          <div class="box section">
             <h2>☠️ ¿Qué es el Malware?</h2>
-            <p>Malware es software malicioso que busca dañar, acceder o robar información de un sistema o red. Puede incluir virus, gusanos, troyanos, spyware, entre otros.</p>
+            <p>Malware es software malicioso diseñado para dañar o infiltrarse en sistemas. Puede tomar la forma de virus, gusanos, spyware o ransomware.</p>
           </div>
 
-          <div class="section">
+          <div class="box section">
             <h2>🎣 ¿Qué es el Phishing?</h2>
-            <p>Phishing es una técnica de ingeniería social en la que el atacante se hace pasar por una entidad legítima para engañar a la víctima y obtener datos confidenciales como contraseñas o tarjetas.</p>
+            <p>El phishing es una técnica para engañar a las personas y obtener sus datos privados simulando ser una entidad confiable (como un banco o red social).</p>
           </div>
 
-          <div class="section">
+          <div class="box section">
             <h2>🧬 ¿Qué es el Ransomware?</h2>
-            <p>Ransomware es un tipo de malware que cifra los archivos de la víctima y exige un rescate para restaurar el acceso a los datos.</p>
+            <p>Ransomware bloquea el acceso a tus archivos y exige un pago para restaurarlos. Es una de las amenazas más graves en ciberseguridad.</p>
           </div>
 
-          <div class="section">
+          <div class="box section">
             <h2>🧠 ¿Qué es la Ingeniería Social?</h2>
-            <p>Es el arte de manipular psicológicamente a las personas para que revelen información confidencial. Se basa en engañar al usuario más que en vulnerabilidades técnicas.</p>
+            <p>Es el uso de técnicas psicológicas para manipular a las personas y lograr que entreguen información confidencial. Ataca al "usuario", no al sistema.</p>
           </div>
 
         </body>
         </html>
       `);
-      nuevaVentana.document.close();
+      ventana.document.close();
     }
   </script>
 
