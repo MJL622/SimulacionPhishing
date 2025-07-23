@@ -1,59 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Simulación Phishing Educativo</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulación Phishing Educativo</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e9f1f7;
       margin: 0;
     }
     header, footer {
-      background-color: #0077b6;
+      background-color: #023e8a;
       color: white;
       text-align: center;
-      padding: 15px 0;
+      padding: 20px;
     }
     .container {
-      max-width: 700px;
-      margin: 30px auto;
-      background-color: white;
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      transition: all 0.4s ease;
     }
     h2 {
-      color: #0077b6;
+      color: #023e8a;
       text-align: center;
+    }
+    p {
+      line-height: 1.6;
     }
     .form-group {
       margin-bottom: 20px;
     }
     label {
+      font-weight: bold;
+      margin-bottom: 6px;
       display: block;
-      margin-bottom: 8px;
     }
     input {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 14px;
     }
     .btn {
       display: block;
       width: 100%;
-      padding: 12px;
-      margin-top: 10px;
       background-color: #0077b6;
       color: white;
       border: none;
-      border-radius: 6px;
+      padding: 12px;
       font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
-      text-align: center;
-      text-decoration: none;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
     }
     .btn:hover {
       background-color: #005f87;
@@ -63,11 +68,11 @@
     }
     table {
       width: 100%;
-      border-collapse: collapse;
       margin-top: 20px;
+      border-collapse: collapse;
     }
     th, td {
-      padding: 10px;
+      padding: 12px;
       border-bottom: 1px solid #ccc;
       text-align: center;
     }
@@ -75,18 +80,22 @@
       background-color: #0077b6;
       color: white;
     }
+    .emoji {
+      font-size: 1.4em;
+      margin-right: 6px;
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Taller de Seguridad Digital</h1>
+  <h1>🔐 Simulación Educativa de Phishing</h1>
 </header>
 
 <!-- Sección Login -->
 <div class="container" id="seccion-login">
-  <h2>Inicio de sesión</h2>
-  <p>Ingrese sus credenciales para continuar</p>
+  <h2>🔑 Iniciar sesión</h2>
+  <p>Introduce tus credenciales para acceder:</p>
   <form onsubmit="handleLogin(event)">
     <div class="form-group">
       <label for="username">Usuario</label>
@@ -96,33 +105,33 @@
       <label for="password">Contraseña</label>
       <input type="password" id="password" required />
     </div>
-    <button type="submit" class="btn">Ingresar</button>
+    <button type="submit" class="btn">Iniciar sesión</button>
   </form>
 </div>
 
-<!-- Sección Datos Capturados -->
+<!-- Datos capturados -->
 <div class="container hidden" id="seccion-capturado">
-  <h2>Datos capturados</h2>
+  <h2>📥 Datos Capturados</h2>
   <p><strong>Usuario:</strong> <span id="capturado-usuario"></span></p>
   <p><strong>Contraseña:</strong> <span id="capturado-pass"></span></p>
   <p><strong>Hora de ingreso:</strong> <span id="capturado-hora"></span></p>
 
-  <button class="btn" onclick="mostrarSeccion('seccion-info')">¿Qué es la ciberseguridad?</button>
-  <button class="btn" onclick="mostrarSeccion('seccion-atacante')">Ver como atacante</button>
-  <button class="btn" onclick="reiniciar()">Regresar al login</button>
+  <button class="btn" onclick="mostrarSeccion('seccion-info')">ℹ️ ¿Qué es la ciberseguridad?</button>
+  <button class="btn" onclick="mostrarSeccion('seccion-atacante')">🕵️ Ver como atacante</button>
+  <button class="btn" onclick="reiniciar()">🔁 Regresar al login</button>
 </div>
 
-<!-- Sección Informativa -->
+<!-- Información -->
 <div class="container hidden" id="seccion-info">
-  <h2>¿Qué es la ciberseguridad?</h2>
-  <p>La ciberseguridad se refiere a la protección de sistemas, redes y programas contra ataques digitales. Estos ataques suelen tener como objetivo acceder, cambiar o destruir información confidencial, extorsionar a los usuarios o interrumpir procesos normales.</p>
-  <p>El phishing es una técnica utilizada por ciberdelincuentes para engañar a las personas y obtener sus datos personales haciéndose pasar por entidades confiables.</p>
-  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">Volver</button>
+  <h2>🔐 ¿Qué es la ciberseguridad?</h2>
+  <p>La ciberseguridad protege redes, dispositivos y datos frente a accesos no autorizados y ciberataques. Es esencial en un mundo digital interconectado.</p>
+  <p>📧 <strong>Phishing</strong> es una técnica que usan los atacantes para engañar a las personas haciéndose pasar por entidades confiables y robar información personal como contraseñas o datos bancarios.</p>
+  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">🔙 Volver</button>
 </div>
 
-<!-- Sección Vista del Atacante -->
+<!-- Vista del Atacante -->
 <div class="container hidden" id="seccion-atacante">
-  <h2>Credenciales recolectadas</h2>
+  <h2>🛠️ Credenciales Recolectadas</h2>
   <table>
     <thead>
       <tr>
@@ -133,28 +142,26 @@
     </thead>
     <tbody id="tabla-datos"></tbody>
   </table>
-  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">Volver</button>
+  <button class="btn" onclick="mostrarSeccion('seccion-capturado')">🔙 Volver</button>
 </div>
 
 <footer>
-  <p>Simulación educativa de seguridad digital - © 2025</p>
+  <p>© 2025 | Simulación educativa de ciberseguridad</p>
 </footer>
 
 <script>
   function handleLogin(event) {
     event.preventDefault();
-    const usuario = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
+    const usuario = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
     const hora = new Date().toLocaleString();
 
-    const registro = { usuario, contrasena: pass, hora };
+    const nuevoRegistro = { usuario, contrasena: pass, hora };
 
-    // Guardar en localStorage como array de objetos
     let registros = JSON.parse(localStorage.getItem('registros') || '[]');
-    registros.push(registro);
+    registros.push(nuevoRegistro);
     localStorage.setItem('registros', JSON.stringify(registros));
 
-    // Mostrar datos capturados
     document.getElementById('capturado-usuario').textContent = usuario;
     document.getElementById('capturado-pass').textContent = pass;
     document.getElementById('capturado-hora').textContent = hora;
@@ -163,25 +170,21 @@
   }
 
   function mostrarSeccion(id) {
-    document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
 
     if (id === 'seccion-atacante') {
-      mostrarDatosAtacante();
+      actualizarTabla();
     }
   }
 
-  function mostrarDatosAtacante() {
+  function actualizarTabla() {
     const tabla = document.getElementById('tabla-datos');
     tabla.innerHTML = '';
     const registros = JSON.parse(localStorage.getItem('registros') || '[]');
     registros.forEach(reg => {
       const fila = document.createElement('tr');
-      fila.innerHTML = `
-        <td>${reg.usuario}</td>
-        <td>${reg.contrasena}</td>
-        <td>${reg.hora}</td>
-      `;
+      fila.innerHTML = `<td>${reg.usuario}</td><td>${reg.contrasena}</td><td>${reg.hora}</td>`;
       tabla.appendChild(fila);
     });
   }
